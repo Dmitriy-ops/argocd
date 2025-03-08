@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: my-newsite
+    environment: {{ .Values.environment | default "unknown" }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: my-newsite
+  template:
+    metadata:
+      labels:
+        app: my-newsite
+        environment: {{ .Values.environment | default "unknown" }}
+    spec:
+      containers:
+      - name: my-newsite
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        resources:
+          {{ toYaml .Values.resources | indent 12 }}

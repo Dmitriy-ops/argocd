@@ -1,0 +1,12 @@
+replicaCount: 2
+
+image:
+  repository: dmitriyops/my_newsite
+  tag: "1.0" # Default image tag (for dev)
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
